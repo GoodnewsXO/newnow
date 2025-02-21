@@ -1,0 +1,2 @@
+/Users/goodnewssolomon/Documents/All Flutter Project/newnow/android/app/.cxx/Debug/717042m2/x86/CMakeFiles/edit_cache.dir
+/Users/goodnewssolomon/Documents/All Flutter Project/newnow/android/app/.cxx/Debug/717042m2/x86/CMakeFiles/rebuild_cache.dir
