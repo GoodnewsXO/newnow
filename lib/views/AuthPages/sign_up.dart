@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:newnow/components/button.dart';
 import 'package:newnow/utils/constants.dart';
 
 class SignUp extends StatelessWidget {
@@ -140,20 +141,15 @@ class SignUp extends StatelessWidget {
               ],
             ),
             SizedBox(height: 12),
-            Container(
-              decoration: BoxDecoration(
-                  color: kHeadingColor,
-                  borderRadius: BorderRadius.circular(10.0)),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 18.0),
-                child: Center(
-                    child: Text(
-                  'Sign In',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontFamily: 'Roboto',
-                  ),
-                )),
+            InkWell(
+              onTap: () {
+                Navigator.pushNamed(context, '/HomePage');
+              },
+              child: Button(
+                text: 'Sign Up',
+                textColor: Colors.white,
+                width: double.infinity,
+                buttonColor: kHeadingColor,
               ),
             ),
             SizedBox(height: 22),

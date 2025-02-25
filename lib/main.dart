@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:newnow/views/AuthPages/log_In.dart';
 import 'package:newnow/views/AuthPages/sign_up.dart';
+import 'package:newnow/views/home_page.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() async {
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/SignUp': (context) => SignUp(),
         '/LogIn': (context) => LogIn(),
+        '/HomePage': (context) => HomePage(),
       },
     );
   }
