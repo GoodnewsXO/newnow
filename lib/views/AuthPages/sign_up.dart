@@ -245,7 +245,7 @@ class SignUp extends StatelessWidget {
                 SizedBox(width: 3),
                 InkWell(
                   onTap: () {
-                    Navigator.pushNamed(context, '/LogIn');
+                    Navigator.pushNamed(context, '/MainPage');
                   },
                   child: Text(
                     'LogIn',
