@@ -25,9 +25,6 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-            border:
-                Border(top: BorderSide(width: 1, color: Color(0xffe6e6e6)))),
         child: BottomNavigationBar(
           currentIndex: _pageIndex,
           onTap: (value) {
@@ -37,28 +34,14 @@ class _MainPageState extends State<MainPage> {
           },
           type: BottomNavigationBarType.fixed,
           items: [
-            BottomNavigationBarItem(
-                icon: SvgPicture.asset('assets/icons/Home_active.svg',
-                    color: kPrimaryColor),
-                activeIcon: SvgPicture.asset('assets/icons/Home_inactive.svg'),
-                label: 'Home'),
-            BottomNavigationBarItem(
-                icon: SvgPicture.asset('assets/icons/Explore_active.svg',
-                    color: kPrimaryColor),
-                activeIcon:
-                    SvgPicture.asset('assets/icons/Explore_inactive.svg'),
-                label: 'Discover'),
-            BottomNavigationBarItem(
-                icon: SvgPicture.asset('assets/icons/Bookmark_active.svg',
-                    color: kPrimaryColor),
-                activeIcon:
-                    SvgPicture.asset('assets/icons/Bookmark_inactive.svg'),
-                label: 'Bookmarks'),
-            BottomNavigationBarItem(
-                icon: SvgPicture.asset('assets/icons/Profile - inactive.svg',
-                    color: kPrimaryColor),
-                activeIcon: SvgPicture.asset('assets/icons/Profile.svg'),
-                label: 'Profile'),
+            _buildNavItem('assets/icons/Home_inactive.svg',
+                'assets/icons/Home_active.svg', 'Home', 0, _pageIndex),
+            _buildNavItem('assets/icons/Explore_inactive.svg',
+                'assets/icons/Explore_active.svg', 'Discover', 1, _pageIndex),
+            _buildNavItem('assets/icons/Bookmark_inactive.svg',
+                'assets/icons/Bookmark_active.svg', 'Bookmarks', 2, _pageIndex),
+            _buildNavItem('assets/icons/Profile_inactive.svg',
+                'assets/icons/Profile_active.svg', 'Profile', 3, _pageIndex),
           ],
           selectedLabelStyle: TextStyle(
               fontSize: 12, fontWeight: FontWeight.w700, letterSpacing: -0.3),
@@ -71,6 +54,37 @@ class _MainPageState extends State<MainPage> {
         ),
       ),
       body: _Screens[_pageIndex],
+    );
+  }
+
+  BottomNavigationBarItem _buildNavItem(String inactiveIcon, String activeIcon,
+      String label, int index, int currentPageIndex) {
+    return BottomNavigationBarItem(
+      icon: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          SvgPicture.asset(
+            index == currentPageIndex ? activeIcon : inactiveIcon,
+            color: index == currentPageIndex
+                ? null
+                : const Color.fromARGB(255, 175, 175, 175),
+          ),
+          if (index == currentPageIndex) ...[
+            SizedBox(width: 3),
+            Text(
+              label,
+              style: TextStyle(
+                fontFamily: 'Roboto',
+                fontSize: 16,
+                fontWeight: FontWeight.w700,
+                letterSpacing: -0.3,
+                color: kHeadingColor,
+              ),
+            ),
+          ],
+        ],
+      ),
+      label: '',
     );
   }
 }
