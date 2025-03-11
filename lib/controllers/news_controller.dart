@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:newnow/models/news.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -36,7 +35,6 @@ class NewsController {
       return response.map((json) => News.fromJson(json)).toList();
     } catch (e) {
       print('Error fetching trending news: $e');
-      // TODO: Handle the error appropriately (e.g., show a snackbar)
       return [];
     }
   }
@@ -50,7 +48,19 @@ class NewsController {
       return response.map((json) => News.fromJson(json)).toList();
     } catch (e) {
       print('Error fetching trending news: $e');
-      // TODO: Handle the error appropriately (e.g., show a snackbar)
+      return [];
+    }
+  }
+
+  Future<List<News>> fetchAllNews() async {
+    try {
+      final response =
+          await supabase.from('news').select('*, categories(name)');
+
+      // Directly map the response to News objects, including category name
+      return response.map((json) => News.fromJson(json)).toList();
+    } catch (e) {
+      print('Error fetching trending news: $e');
       return [];
     }
   }

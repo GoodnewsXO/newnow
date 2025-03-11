@@ -29,6 +29,7 @@ class AuthService {
   Users? getCurrentUser() {
     final user = supabase.auth.currentUser;
     if (user == null) return null;
-    return Users(id: user.id, email: user.email!, username: '');
+    return Users(
+        id: user.id, email: user.email!, username: '', profile_image: '');
   }
 }
