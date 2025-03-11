@@ -6,6 +6,7 @@ import 'package:newnow/components/trending_news.dart';
 import 'package:newnow/controllers/channel_controller.dart';
 import 'package:newnow/models/user.dart';
 import 'package:newnow/utils/constants.dart';
+import 'package:shimmer/shimmer.dart';
 
 class ExplorePage extends StatelessWidget {
   final ChannelController _channelController = ChannelController();
@@ -243,6 +244,56 @@ class ExplorePage extends StatelessWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildShimmerEffect() {
+    return Container(
+      height: 160,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: 5,
+        itemBuilder: (context, index) {
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                Shimmer.fromColors(
+                  baseColor: Colors.grey[300]!,
+                  highlightColor: Colors.grey[100]!,
+                  child: Container(
+                    width: 60,
+                    height: 60,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 10),
+                Text(
+                  'account.username',
+                  style: TextStyle(
+                    fontFamily: 'Source Sans Pro',
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                SizedBox(height: 10),
+                Container(
+                  decoration: BoxDecoration(
+                      color: const Color.fromARGB(255, 238, 238, 238),
+                      borderRadius: BorderRadius.circular(10)),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 39.0, vertical: 9),
+                    child: Text('Follow'),
+                  ),
+                ),
+              ],
+            ),
+          );
+        },
       ),
     );
   }

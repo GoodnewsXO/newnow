@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:shimmer/shimmer.dart';
+import 'package:newnow/components/news_content_page.dart';
 import 'package:newnow/controllers/news_controller.dart';
 import 'package:newnow/models/news.dart';
 import 'package:newnow/utils/constants.dart';
@@ -15,9 +17,7 @@ class TrendingNews extends StatelessWidget {
       future: _newsController.fetchTrendingNews(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(
-            child: CircularProgressIndicator(),
-          );
+          return _buildShimmerEffect();
         }
         if (snapshot.hasError) {
           return Center(
@@ -71,8 +71,7 @@ class TrendingNews extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(6),
                               ),
                               child: Text(
-                                article.categoryName ??
-                                    'no category', // Replace with actual category
+                                article.categoryName ?? 'no category',
                                 style: TextStyle(
                                   fontSize: 12,
                                   color: Colors.white,
@@ -83,13 +82,24 @@ class TrendingNews extends StatelessWidget {
                         ],
                       ),
                       SizedBox(height: 12),
-                      Text(
-                        article.title ?? 'No Title', // Handle null title
-                        style: TextStyle(
-                          fontFamily: 'Roboto',
-                          fontSize: 18,
-                          fontWeight: FontWeight.w700,
-                          color: kHeadingColor,
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  NewsContentPage(news: article),
+                            ),
+                          );
+                        },
+                        child: Text(
+                          article.title ?? 'No Title',
+                          style: TextStyle(
+                            fontFamily: 'Roboto',
+                            fontSize: 18,
+                            fontWeight: FontWeight.w700,
+                            color: kHeadingColor,
+                          ),
                         ),
                       ),
                       SizedBox(height: 12),
@@ -110,7 +120,7 @@ class TrendingNews extends StatelessWidget {
                               ),
                               SizedBox(width: 10),
                               Text(
-                                'BBC News', // Replace with actual author
+                                'BBC News',
                                 style: TextStyle(
                                   fontSize: 14,
                                   color: kHeadingColor.withOpacity(0.5),
@@ -139,6 +149,91 @@ class TrendingNews extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+
+  Widget _buildShimmerEffect() {
+    return SizedBox(
+      height: 250,
+      child: ListView.builder(
+        scrollDirection: scrollDirection,
+        itemCount: 5,
+        itemBuilder: (context, index) {
+          return Container(
+            margin: EdgeInsets.only(right: 20),
+            width: 300,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: [
+                  Shimmer.fromColors(
+                    baseColor: Colors.grey[300]!,
+                    highlightColor: Colors.grey[100]!,
+                    child: Container(
+                      height: 120,
+                      decoration: BoxDecoration(
+                        color: Colors.grey[300],
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 12),
+                  Shimmer.fromColors(
+                    baseColor: Colors.grey[300]!,
+                    highlightColor: Colors.grey[100]!,
+                    child: Container(
+                      height: 20,
+                      width: 250,
+                      color: Colors.grey[300],
+                    ),
+                  ),
+                  SizedBox(height: 12),
+                  Row(
+                    children: [
+                      Shimmer.fromColors(
+                        baseColor: Colors.grey[300]!,
+                        highlightColor: Colors.grey[100]!,
+                        child: Container(
+                          height: 24,
+                          width: 24,
+                          decoration: BoxDecoration(
+                            color: Colors.grey[300],
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                        ),
+                      ),
+                      SizedBox(width: 10),
+                      Shimmer.fromColors(
+                        baseColor: Colors.grey[300]!,
+                        highlightColor: Colors.grey[100]!,
+                        child: Container(
+                          height: 16,
+                          width: 100,
+                          color: Colors.grey[300],
+                        ),
+                      ),
+                      Spacer(),
+                      Shimmer.fromColors(
+                        baseColor: Colors.grey[300]!,
+                        highlightColor: Colors.grey[100]!,
+                        child: Container(
+                          height: 16,
+                          width: 80,
+                          color: Colors.grey[300],
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+      ),
     );
   }
 }

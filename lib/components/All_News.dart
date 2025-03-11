@@ -35,7 +35,7 @@ class AllNews extends StatelessWidget {
                       ? DateFormat('MMMM dd, yyyy').format(article.createdAt!)
                       : 'Date Unavailable';
                   return Container(
-                    margin: EdgeInsets.only(right: 20),
+                    margin: EdgeInsets.only(bottom: 20),
                     width: double.maxFinite,
                     decoration: BoxDecoration(
                       color: Color(0xffF9FCFE),

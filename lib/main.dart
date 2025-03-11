@@ -28,6 +28,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: false,
       ),
       home: const LogIn(),
+      initialRoute: '/LogIn',
       routes: {
         '/SignUp': (context) => SignUp(),
         '/LogIn': (context) => LogIn(),
